@@ -1,0 +1,9 @@
+{
+  "retrieved_at": "2026-09-25T11:41:13.706390+00:00",
+  "source": "https://jsonplaceholder.typicode.com/todos/1",
+  "item": {
+    "id": 1,
+    "title": "delectus aut autem",
+    "completed": false
+  }
+}

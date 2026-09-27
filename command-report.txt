@@ -1,0 +1,9 @@
+Kernel:
+Linux 6.12.107+deb13-amd64
+
+Current directory:
+/home/user/Aaradya/AI_ATOMATION
+
+Disk usage:
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda5        55G   25G   28G  48% /

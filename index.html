@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Automation 30-day project dashboard">
+  <title>AI Automation Lab | 30-Day Dashboard</title>
+  <style>
+    :root {
+      --ink: #17221f;
+      --muted: #68756f;
+      --paper: #f6f7f2;
+      --panel: #ffffff;
+      --line: #dbe3dc;
+      --green: #176b55;
+      --green-dark: #0f4d3d;
+      --mint: #dff2e8;
+      --orange: #e6814d;
+      --shadow: 0 16px 42px rgba(27, 55, 45, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 90% 0%, rgba(223, 242, 232, 0.9), transparent 28rem),
+        linear-gradient(135deg, #f6f7f2 0%, #eef4ef 100%);
+      font-family: Georgia, "Times New Roman", serif;
+      min-height: 100vh;
+    }
+
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    header { padding: 58px 0 34px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
+
+    .eyebrow {
+      color: var(--orange);
+      font: 700 0.76rem/1.2 "Courier New", monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 { font-size: clamp(2.6rem, 6vw, 5.8rem); line-height: 0.92; letter-spacing: -0.03em; margin: 0; max-width: 760px; font-weight: 700; }
+    .intro { color: var(--muted); font: 1rem/1.6 "Courier New", monospace; max-width: 610px; margin: 22px 0 0; }
+
+    .completion { text-align: right; }
+    .completion strong { display: block; color: var(--green); font-size: 4.2rem; line-height: 0.9; }
+    .completion span { color: var(--muted); font: 0.76rem "Courier New", monospace; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .controls {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 12px;
+      padding: 14px;
+      margin-bottom: 24px;
+      position: sticky;
+      top: 12px;
+      z-index: 2;
+      backdrop-filter: blur(14px);
+    }
+
+    input, select {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      font: 0.88rem "Courier New", monospace;
+      padding: 13px 14px;
+      min-height: 46px;
+      outline: none;
+    }
+
+    input { flex: 1; min-width: 180px; }
+    input:focus, select:focus { border-color: var(--green); box-shadow: 0 0 0 3px var(--mint); }
+
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding-bottom: 56px; }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(27, 55, 45, 0.06);
+      padding: 22px;
+      min-height: 215px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .card.is-hidden { display: none; }
+    .day { color: var(--green); font: 700 0.76rem "Courier New", monospace; letter-spacing: 0.09em; text-transform: uppercase; }
+    h2 { font-size: 1.42rem; line-height: 1.12; margin: 13px 0 10px; }
+    .description { color: var(--muted); font: 0.82rem/1.5 "Courier New", monospace; margin: 0; flex: 1; }
+    .links { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+    .links a { background: var(--green); color: #fff; text-decoration: none; font: 700 0.72rem "Courier New", monospace; padding: 10px 12px; }
+    .links a:hover { background: var(--green-dark); }
+    .links a.secondary { background: var(--mint); color: var(--green-dark); }
+    .no-results { color: var(--muted); display: none; font: 0.9rem "Courier New", monospace; padding: 32px 0 56px; }
+
+    footer { border-top: 1px solid var(--line); color: var(--muted); font: 0.76rem "Courier New", monospace; padding: 20px 0 36px; }
+
+    @media (max-width: 820px) {
+      header { grid-template-columns: 1fr; padding-top: 38px; }
+      .completion { text-align: left; display: flex; align-items: baseline; gap: 12px; }
+      .completion strong { font-size: 3rem; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .controls { position: static; flex-direction: column; }
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <div class="eyebrow">AI Automation Lab / Field Guide</div>
+        <h1>Thirty days.<br>Thirty builds.</h1>
+        <p class="intro">A single launchpad for the Linux, Python, API, AI, and hardware automation projects in this workspace.</p>
+      </div>
+      <div class="completion" aria-label="Project completion">
+        <strong>30</strong>
+        <span>projects complete</span>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Dashboard filters">
+      <input id="search" type="search" placeholder="Search projects..." aria-label="Search projects">
+      <select id="phase" aria-label="Filter by phase">
+        <option value="all">All phases</option>
+        <option value="linux">Linux + Bash</option>
+        <option value="python">Python</option>
+        <option value="api">APIs + Services</option>
+        <option value="ai">AI Workflows</option>
+        <option value="hardware">Hardware</option>
+        <option value="capstone">Capstone</option>
+      </select>
+    </section>
+
+    <section class="grid" id="project-grid" aria-live="polite">
+      <article class="card" data-phase="linux" data-search="day 1 linux automation workspace bash input file">
+        <div class="day">Day 01 / Linux</div><h2>Linux Automation Workspace</h2><p class="description">Create the lab folder and verify an input file from the terminal.</p>
+        <div class="links"><a href="day-01-linux-workspace/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="linux" data-search="day 2 bash file existence checker condition">
+        <div class="day">Day 02 / Linux</div><h2>Bash File Checker</h2><p class="description">Use conditions and exit codes to detect whether a file exists.</p>
+        <div class="links"><a href="day-02-file-checker/check_file.sh">Code</a><a class="secondary" href="day-02-file-checker/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="linux" data-search="day 3 backup tar gzip bash">
+        <div class="day">Day 03 / Linux</div><h2>Automatic Backup</h2><p class="description">Create dated compressed archives from a source folder.</p>
+        <div class="links"><a href="day-03-backup/backup.sh">Code</a><a class="secondary" href="day-03-backup/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="linux" data-search="day 4 disk usage warning df bash">
+        <div class="day">Day 04 / Linux</div><h2>Disk Usage Warning</h2><p class="description">Compare filesystem usage against a configurable threshold.</p>
+        <div class="links"><a href="day-04-disk-monitor/check_disk.sh">Code</a><a class="secondary" href="day-04-disk-monitor/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="linux" data-search="day 5 log scanner errors grep bash">
+        <div class="day">Day 05 / Linux</div><h2>Log Error Scanner</h2><p class="description">Extract ERROR, FAILED, and FATAL entries from logs.</p>
+        <div class="links"><a href="day-05-log-scanner/scan_errors.sh">Code</a><a class="secondary" href="day-05-log-scanner/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="linux" data-search="day 6 cron scheduled task timestamp">
+        <div class="day">Day 06 / Linux</div><h2>Cron Task</h2><p class="description">Write a timestamped task and schedule it with cron.</p>
+        <div class="links"><a href="day-06-cron-task/scheduled_task.sh">Code</a><a class="secondary" href="day-06-cron-task/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="linux" data-search="day 7 system information report hostname kernel memory disk">
+        <div class="day">Day 07 / Linux</div><h2>System Information Report</h2><p class="description">Collect hostname, kernel, memory, and disk information.</p>
+        <div class="links"><a href="day-07-system-report/system_report.sh">Code</a><a class="secondary" href="day-07-system-report/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="python" data-search="day 8 python file organizer extension folders">
+        <div class="day">Day 08 / Python</div><h2>Python File Organizer</h2><p class="description">Move files into folders based on their extensions.</p>
+        <div class="links"><a href="day-08-python-organizer/organize_files.py">Code</a><a class="secondary" href="day-08-python-organizer/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="python" data-search="day 9 python file renamer date sequence">
+        <div class="day">Day 09 / Python</div><h2>File Renamer</h2><p class="description">Apply date prefixes and safe sequence names while preserving extensions.</p>
+        <div class="links"><a href="day-09-file-renamer/rename_files.py">Code</a><a class="secondary" href="day-09-file-renamer/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="python" data-search="day 10 folder monitor python new files polling">
+        <div class="day">Day 10 / Python</div><h2>Folder Monitor</h2><p class="description">Detect new files with continuous polling or one-shot mode.</p>
+        <div class="links"><a href="day-10-folder-monitor/monitor_folder.py">Code</a><a class="secondary" href="day-10-folder-monitor/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="python" data-search="day 11 csv sales data totals decimal">
+        <div class="day">Day 11 / Python</div><h2>CSV Data Automation</h2><p class="description">Process sales rows and calculate reliable monetary totals.</p>
+        <div class="links"><a href="day-11-csv-automation/process_sales.py">Code</a><a class="secondary" href="day-11-csv-automation/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="python" data-search="day 12 json task tracker add list complete">
+        <div class="day">Day 12 / Python</div><h2>JSON Task Tracker</h2><p class="description">Add, list, and complete tasks stored in JSON.</p>
+        <div class="links"><a href="day-12-json-tasks/task_tracker.py">Code</a><a class="secondary" href="day-12-json-tasks/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="python" data-search="day 13 subprocess linux commands report">
+        <div class="day">Day 13 / Python</div><h2>Python + Linux Commands</h2><p class="description">Capture output from safe Linux commands in a report.</p>
+        <div class="links"><a href="day-13-python-linux-command/command_report.py">Code</a><a class="secondary" href="day-13-python-linux-command/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="python" data-search="day 14 review progress documentation">
+        <div class="day">Day 14 / Review</div><h2>Progress Review</h2><p class="description">Scan Days 1–13 and verify every project is documented.</p>
+        <div class="links"><a href="day-14-review/review_progress.py">Code</a><a class="secondary" href="day-14-review/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="api" data-search="day 15 public api json urllib">
+        <div class="day">Day 15 / APIs</div><h2>Public API Client</h2><p class="description">Fetch JSON from a public endpoint and validate selected fields.</p>
+        <div class="links"><a href="day-15-public-api/api_client.py">Code</a><a class="secondary" href="day-15-public-api/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="api" data-search="day 16 local http server health status">
+        <div class="day">Day 16 / APIs</div><h2>Local HTTP Server</h2><p class="description">Serve health and status JSON endpoints from Python.</p>
+        <div class="links"><a href="day-16-local-server/server.py">Code</a><a class="secondary" href="day-16-local-server/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="api" data-search="day 17 webhook receiver post json events">
+        <div class="day">Day 17 / APIs</div><h2>Webhook Receiver</h2><p class="description">Validate incoming JSON events and log them as JSON Lines.</p>
+        <div class="links"><a href="day-17-webhook-receiver/webhook_receiver.py">Code</a><a class="secondary" href="day-17-webhook-receiver/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="api" data-search="day 18 email notification eml message">
+        <div class="day">Day 18 / Services</div><h2>Email Notification</h2><p class="description">Generate a reviewable email notification without sending it.</p>
+        <div class="links"><a href="day-18-email-notification/send_notification.py">Code</a><a class="secondary" href="day-18-email-notification/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="api" data-search="day 19 retry error handling attempts">
+        <div class="day">Day 19 / Services</div><h2>Retry and Error Handling</h2><p class="description">Recover from transient failures and stop after a limit.</p>
+        <div class="links"><a href="day-19-retry-errors/retry_task.py">Code</a><a class="secondary" href="day-19-retry-errors/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="api" data-search="day 20 scheduled api report cron">
+        <div class="day">Day 20 / APIs</div><h2>Scheduled API Report</h2><p class="description">Fetch live API data into a timestamped report for cron.</p>
+        <div class="links"><a href="day-20-scheduled-api-report/api_report.py">Code</a><a class="secondary" href="day-20-scheduled-api-report/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="ai" data-search="day 21 ai text classifier billing technical support">
+        <div class="day">Day 21 / AI</div><h2>Text Classifier</h2><p class="description">Classify text into billing, technical, support, or other.</p>
+        <div class="links"><a href="day-21-text-classifier/classify_text.py">Code</a><a class="secondary" href="day-21-text-classifier/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="ai" data-search="day 22 ai document summarizer extractive sentences">
+        <div class="day">Day 22 / AI</div><h2>Document Summarizer</h2><p class="description">Rank and extract the strongest sentences from a document.</p>
+        <div class="links"><a href="day-22-document-summarizer/summarize_document.py">Code</a><a class="secondary" href="day-22-document-summarizer/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="ai" data-search="day 23 ai email assistant intent draft">
+        <div class="day">Day 23 / AI</div><h2>Email Assistant</h2><p class="description">Detect email intent and create a human-reviewable draft.</p>
+        <div class="links"><a href="day-23-email-assistant/email_assistant.py">Code</a><a class="secondary" href="day-23-email-assistant/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="ai" data-search="day 24 human approval workflow action">
+        <div class="day">Day 24 / AI</div><h2>Human Approval Workflow</h2><p class="description">Block consequential actions until explicit approval is recorded.</p>
+        <div class="links"><a href="day-24-human-approval/approval_workflow.py">Code</a><a class="secondary" href="day-24-human-approval/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="ai" data-search="day 25 ai file sorter invoices resumes reports">
+        <div class="day">Day 25 / AI</div><h2>AI File Sorter</h2><p class="description">Classify documents by content and move them into categories.</p>
+        <div class="links"><a href="day-25-ai-file-sorter/sort_documents.py">Code</a><a class="secondary" href="day-25-ai-file-sorter/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="hardware" data-search="day 26 sensor reading temperature json hardware">
+        <div class="day">Day 26 / Hardware</div><h2>Sensor Reading</h2><p class="description">Record simulated sensor values with units and timestamps.</p>
+        <div class="links"><a href="day-26-sensor-reading/read_sensor.py">Code</a><a class="secondary" href="day-26-sensor-reading/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="hardware" data-search="day 27 device led control gpio simulated">
+        <div class="day">Day 27 / Hardware</div><h2>Device Control</h2><p class="description">Turn a simulated LED on or off from a threshold decision.</p>
+        <div class="links"><a href="day-27-device-control/control_device.py">Code</a><a class="secondary" href="day-27-device-control/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="hardware" data-search="day 28 temperature alert sensor">
+        <div class="day">Day 28 / Hardware</div><h2>Temperature Alert</h2><p class="description">Record normal or alert status from a temperature limit.</p>
+        <div class="links"><a href="day-28-temperature-alert/temperature_alert.py">Code</a><a class="secondary" href="day-28-temperature-alert/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="hardware" data-search="day 29 smart greenhouse moisture pump">
+        <div class="day">Day 29 / Hardware</div><h2>Smart Greenhouse</h2><p class="description">Combine moisture and temperature inputs to control a pump.</p>
+        <div class="links"><a href="day-29-smart-greenhouse/greenhouse.py">Code</a><a class="secondary" href="day-29-smart-greenhouse/README.md">Guide</a></div>
+      </article>
+      <article class="card" data-phase="capstone" data-search="day 30 complete ai automation pipeline trigger process action audit">
+        <div class="day">Day 30 / Capstone</div><h2>Complete Automation Pipeline</h2><p class="description">Connect trigger, classification, action, audit logging, and failure handling.</p>
+        <div class="links"><a href="day-30-complete-pipeline/pipeline.py">Code</a><a class="secondary" href="day-30-complete-pipeline/README.md">Guide</a></div>
+      </article>
+    </section>
+    <p class="no-results" id="no-results">No projects match that search.</p>
+    <footer>AI Automation Lab · Built from the projects in this workspace · <a href="AI_AUTOMATION_LEARNING.md">Open the roadmap</a> · <a href="DAYS_31_60_TUTORIALS.md">Open Days 31–60 tutorials</a></footer>
+  </main>
+
+  <script>
+    const search = document.getElementById('search');
+    const phase = document.getElementById('phase');
+    const cards = [...document.querySelectorAll('.card')];
+    const noResults = document.getElementById('no-results');
+
+    function filterProjects() {
+      const query = search.value.toLowerCase().trim();
+      const selectedPhase = phase.value;
+      let visible = 0;
+      cards.forEach((card) => {
+        const matchesText = card.dataset.search.includes(query);
+        const matchesPhase = selectedPhase === 'all' || card.dataset.phase === selectedPhase;
+        const show = matchesText && matchesPhase;
+        card.classList.toggle('is-hidden', !show);
+        if (show) visible += 1;
+      });
+      noResults.style.display = visible ? 'none' : 'block';
+    }
+
+    search.addEventListener('input', filterProjects);
+    phase.addEventListener('change', filterProjects);
+  </script>
+</body>
+</html>
