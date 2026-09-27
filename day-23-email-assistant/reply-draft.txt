@@ -1,0 +1,9 @@
+Intent: billing
+
+Draft reply:
+Hello,
+
+Thank you for contacting us about your billing request. We will review the invoice and payment details and follow up with you.
+
+Regards,
+Automation Support
