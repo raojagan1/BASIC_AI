@@ -1,0 +1,2 @@
+2:ERROR database unavailable
+4:FATAL service stopped

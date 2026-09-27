@@ -1,0 +1,2 @@
+[done] 1: Learn Python
+[open] 2: Build an automation
