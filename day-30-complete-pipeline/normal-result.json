@@ -1,0 +1,15 @@
+{
+  "processed_at": "2026-09-25T11:54:15.308028+00:00",
+  "trigger": {
+    "soil_moisture": 55,
+    "temperature": 24
+  },
+  "classification": {
+    "soil": "adequately_moist",
+    "temperature": "normal"
+  },
+  "actions": [
+    "pump_off"
+  ],
+  "status": "completed"
+}
